@@ -15,19 +15,21 @@
 	}
 }
 
-@media only screen and (max-width: 769px) {
-	.content_special {
-		border-radius: 0px 0px 0px 0px;
-		grid-template-columns: 1fr;
-		.wallet {
-			border-radius: 0px 0px 0px 0px;
-			background-color: $dark-mode-bg;
-			margin-left: 0vw;
-			min-height: 100vh;
-		}
-	}
 
-	.left-wallet_nav {
-		display: none;
-	}
+
+@media only screen and (max-width: 769px){
+ 
+  .content_special {
+    border-radius: 0px 0px 0px 0px;
+    grid-template-columns: 1fr;
+    
+    .wallet{
+      border-radius: 0px 0px 0px 0px;
+      background-color: white;
+    }
+  }
+  
+  .left-wallet_nav{
+    display: none;
+  }
 }
