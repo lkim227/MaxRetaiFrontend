@@ -206,10 +206,19 @@ export const maticxDaixExchangeAddress = '0x250efbB94De68dD165bD6c98e804E08153Eb
 
 //USDC X RIC
 export const usdcxRicExchangeAddress = '0x98d463A3F29F259E67176482eB15107F364c7E18';
-
-//USDC X IBALLUOUSD
-export const usdcxibAlluoUSDAddress = '0xE53dd10d49C8072d68d48c163d9e1A219bd6852D';
-
-//Deprecated Waterdrop
-
-export const claimAddress = '0x9dA677c3423E0eBc1e3d7c0a86e9b9a34Bbd2874';
+export const usdcxEthSlpxExchangeAddress = '0xeb367F6a0DDd531666D778BC096d212a235a6f78';
+export const usdcxIdleExchangeAddress = '0xBe79a6fd39a8E8b0ff7E1af1Ea6E264699680584';
+export const rexLPETHAddress = '0x9d5753d8eb0Bc849C695461F866a851F13947CB3';
+export const SUSHIxAddress = '0xDaB943C03f9e84795DC7BF51DdC71DaF0033382b';
+export const SUSHIAddress = '0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a';
+export const IDLExAddress = '0xB63E38D21B31719e6dF314D3d2c351dF0D4a9162';
+export const IDLEAddress = '0xC25351811983818c9Fe6D8c580531819c8ADe90f';
+export const ZeroAddress = '0x0000000000000000000000000000000000000000';
+export const rexReferralAddress = '0xA0eC9E1542485700110688b3e6FbebBDf23cd901';
+export const twoWayWETHMarketAddress = '0xF1748222B08193273fd34FF10A28352A2C25Adb0';
+export const twoWayMarketWBTCAddress = '0x6B3E507433624072f5e3948BbDb6EFB93AA55B47';
+export const twoWayMarketDAIWETHAddress = '0xB44B371A56cE0245ee961BB8b4a22568e3D32874';
+export const twoWayMarketRICUSDCAddress = '0x86c2B55bf5d3E9DAC2747389B38D41C6B1F34179';
+// export const twoWayMarketMATICUSDCAddress = "0x87588653F2F840Bf0589d5715679Db77d8fC021d";
+// export const twoWayMarketMATICDAIAddress = "0xcaB28480ab5c1E133e9B7FC67E030B8DCC2A1d24"
+// export const twoWayMarketWBTCDAIAddress = "0xE0073786618b886aA1aa44Df103850a227ADe9ae"
