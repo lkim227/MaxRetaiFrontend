@@ -1,14 +1,14 @@
 @import '../../../assets/styles/mixins';
 .panel {
-	@include flexbox(flex-start, center);
-	flex-direction: column;
-	border-radius: 10px;
-	background: $dark-mode-bg-2;
-	color: white;
-	width: 100%;
-	font-size: 14px;
-	@include tablet {
-	}
+  @include flexbox(flex-start, center);
+  flex-direction: column;
+  border-radius: 10px;
+  background: $dark-mode-bg-2;
+  color: white;
+  width: 100%;
+  font-size: 14px;
+  @include tablet {
+  }
 }
 
 .container {
@@ -53,10 +53,10 @@
 .balances {
 	@include flexbox(center, center);
 
-	flex-direction: column;
-	color: lightgray;
-	flex: 1;
-	width: 100%;
+  flex-direction: column;
+  color: lightgray;
+  flex: 1;
+  width: 100%;
 
 	@include tablet {
 		@include flexbox(flex-start, center);
@@ -76,16 +76,16 @@
 }
 
 .direction_label {
-	min-width: 20%;
-	color: white;
-	text-align: right;
-	padding: 3px 6px 0px 0px;
-	font-style: normal;
-	font-weight: 500;
-	font-size: 12px;
-	line-height: 140%;
-	text-transform: uppercase;
-	color: var(--color-grey);
+  min-width: 20%;
+  color: white;
+  text-align: right;
+  padding: 3px 6px 0px 0px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 140%;
+  text-transform: uppercase;
+  color: var(--color-grey);
 }
 
 .currency_first_balance {
@@ -134,11 +134,11 @@
 }
 
 .token_amounts {
-	font-style: normal;
-	font-size: 12px;
-	line-height: 100%;
-	color: rgb(212, 204, 204);
-	padding-bottom: 15px;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 100%;
+  color: rgb(212, 204, 204);
+  padding-bottom: 15px;
 
 	@include tablet {
 		padding-bottom: 10px;
@@ -146,10 +146,10 @@
 }
 
 .distributed_time {
-	font-style: normal;
-	font-size: 12px;
-	line-height: 100%;
-	color: lightblue;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 100%;
+  color: lightblue;
 }
 
 .coin {

@@ -1,17 +1,15 @@
 @import '../../../assets/styles/mixins';
 
 @media screen and (min-width: 786px) {
-	.stream_form {
-		background: $dark-mode-bg-2;
-		color: $dark-mode-lightblue;
-		font-size: 14px;
-		display: flex;
-		border-radius: 10px;
-		align-items: center;
-		justify-content: space-around;
-		flex-direction: column;
-		width: 40vw;
-		padding: 2em;
+  .stream_form{
+    background: $dark-mode-bg-2;
+    color: $dark-mode-lightblue;
+    font-size: 14px;
+    display: flex;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2em;
 
 		.input_container {
 			display: flex;
@@ -19,33 +17,33 @@
 			justify-content: center;
 			flex-direction: column;
 
-			label {
-				font-weight: 500;
-				font-size: 18px;
-				line-height: 140%;
-			}
-
-			input {
-				margin-top: 1em;
-				padding: 0.7em;
-				min-width: 15vw;
-				background: #484e51;
-				border-radius: 8px;
-				border: 1px solid $dark-mode-lightblue;
-				color: $dark-mode-lightblue;
-			}
-
-			select {
-				background: #484e51;
-				border-radius: 8px;
-				border: 1px solid $dark-mode-lightblue;
-				color: $dark-mode-lightblue;
-				margin-top: 1em;
-				padding: 0.7em;
-				width: 100%;
-			}
-		}
-	}
+      label{
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 140%;
+      }
+    
+      input{
+        margin-top: 1em;
+        padding: 0.7em;
+        min-width: 15vw;
+        background: #484e51;
+        border-radius: 8px;
+        border: 1px solid $dark-mode-lightblue;
+        color: $dark-mode-lightblue;
+      }
+      
+      select{
+        background: #484e51;
+        border-radius: 8px;
+        border: 1px solid $dark-mode-lightblue;
+        color: $dark-mode-lightblue;
+        margin-top: 1em;
+        padding: 0.7em;
+        width: 100%;
+      }
+    }
+  }
 
 	.collection {
 		display: flex;
@@ -61,11 +59,11 @@
 }
 
 @media screen and (max-width: 786px) {
-	.stream_form {
-		width: 95vw;
-		padding: 1em;
-		padding-top: 60px;
-	}
+  .stream_form{
+    width: 95vw;
+    padding: 1em;
+    padding-top: 60px;
+  }
 
 	.close {
 		color: #678eb5;
@@ -84,18 +82,18 @@
 		text-align: left;
 	}
 
-	.input_field {
-		background-color: #484e51;
-		border-radius: 12px;
-		border: 1px solid $dark-mode-lightblue;
-		color: $dark-mode-lightblue;
-		letter-spacing: 0.2px;
-		height: 5vh;
-		width: 100%;
-		font-size: medium;
-		margin-bottom: 1em;
-		padding: 0.3em;
-	}
+  .input_field{
+    background-color: #484e51;
+    border-radius: 12px;
+    border: 1px solid $dark-mode-lightblue;
+    color: $dark-mode-lightblue;
+    letter-spacing: 0.2px;
+    height: 8vh;
+    width: 100%;
+    font-size: medium;
+    margin-bottom: 1em;
+    padding: 0.3em;
+  }
 
 	.input_field_submit {
 		color: white;
@@ -112,14 +110,14 @@
 		}
 	}
 
-	.input_container {
-		width: 100%;
-	}
-	.input_label {
-		color: white;
-		margin-top: 1em;
-		font-size: large;
-	}
+  .input_container{
+    width: 100%;
+  }
+  .input_label{
+    color: white;
+    margin-top: 1em;
+    font-size: large;
+  }
 
 	.result {
 		text-align: left;

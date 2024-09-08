@@ -1,5 +1,5 @@
 import React from 'react';
-import StreamManager from 'pages/PaymentsPage/layout/checkout/StreamManager';
+import StreamManager from 'components/streaming/StreamManager';
 import styles from './styles.module.scss';
 import { StreamContainer } from '../StreamContainer';
 

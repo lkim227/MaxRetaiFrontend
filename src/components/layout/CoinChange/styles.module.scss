@@ -45,8 +45,9 @@
 	}
 }
 .currency_name {
-	@include flexbox(center, flex-start);
-	width: auto;
+  @include flexbox(center, flex-start);
+  width: auto;
+
 
 	@include tablet {
 		flex-wrap: nowrap;
@@ -56,10 +57,10 @@
 
 .currency_first,
 .currency_second {
-	color: white;
-	font-size: 15px;
-	font-weight: 700;
-	text-transform: uppercase;
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
 
 	@include tablet {
 		font-size: 16px;

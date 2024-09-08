@@ -1,12 +1,16 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import { iconsCoin, namesCoinX } from 'constants/coins';
-
-//'InvestNav' is declared but its value is never read.
+import { Coin, namesCoin, iconsCoin, namesCoinX } from 'constants/coins';
 
 interface IProps {}
 
 const TokenModal = (props: any) => {
+	React.useEffect(() => {
+		namesCoinX.map((item) => {
+			console.log('-:', item);
+		});
+	}, []);
+
 	return (
 		<>
 			{props.display ? (
@@ -22,8 +26,7 @@ const TokenModal = (props: any) => {
 							{namesCoinX.map((item) => {
 								return (
 									<div className={styles.token_selection} key={item}>
-										<img alt="token-img" className={styles.token_image} src={iconsCoin.BTC} />{' '}
-										<span>{item}</span>
+										<img className={styles.token_image} src={iconsCoin.BTC} /> <span>{item}</span>
 									</div>
 								);
 							})}
@@ -47,11 +50,33 @@ const WarningModal = (props: any) => {
 	);
 };
 
+const SettingsModal = (props: any) => {
+	return (
+		<>
+			{props.display ? (
+				<div className={styles.modal}>
+					<div className={styles.modal_container}></div>
+				</div>
+			) : null}
+		</>
+	);
+};
+
 export const TradeContainer: React.FC<IProps> = () => {
-	const [showTokenModal] = React.useState(true);
+	const [superTokenFrom] = React.useState();
+	const [superTokenTo] = React.useState();
+	const [ammountIn] = React.useState();
+	const [ammountOut] = React.useState();
+	const [address] = React.useState();
+	const [pool] = React.useState();
+	const [showTokenModal, setTokenModal] = React.useState(true);
 	const [showWaringModal] = React.useState(false);
-	const [tokenA] = React.useState({ symbol: 'none', token: 'select token' });
-	const [tokenB] = React.useState({ symbol: 'none', token: 'select token' });
+	const [tokenA, setTokenA] = React.useState({ symbol: 'none', token: 'select token' });
+	const [tokenB, setTokenB] = React.useState({ symbol: 'none', token: 'select token' });
+
+	const closeModal = () => {
+		console.log('hello');
+	};
 
 	return (
 		<>

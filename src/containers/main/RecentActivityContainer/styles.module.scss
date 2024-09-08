@@ -1,8 +1,8 @@
 @import '../../../assets/styles/mixins';
 
 .container {
-	padding: 8px;
-	width: 100vw;
+  padding: 8px;
+  width: 100vw;
 }
 
 @media only screen and (min-width: 768px) {
@@ -26,19 +26,19 @@
 }
 
 .wrapper {
-	display: flex;
-	cursor: pointer;
-	padding: 2em;
-	min-height: 80px;
-	background-color: $dark-mode-bg-2;
-	color: lightgray;
-	border-radius: 8px;
-	margin-bottom: 12px;
+  display: flex;
+  cursor: pointer;
+  padding: 2em;
+  min-height: 80px;
+  background-color: $dark-mode-bg-2;
+  color: lightgray;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }
 
-.header {
-	color: rgb(228, 228, 228);
-	margin-bottom: 1em;
+.header{
+  color:rgb(228, 228, 228);
+  margin-bottom: 1em;
 }
 
 .larger_streaming_wrapper {
@@ -108,11 +108,11 @@
 }
 
 .connect_wallet_wrapper {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	text-align: center;
-	color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  color: white;
 }
 
 .loading_wrapper {

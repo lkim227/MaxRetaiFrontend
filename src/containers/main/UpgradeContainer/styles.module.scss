@@ -38,31 +38,31 @@
 }
 
 .currencyStyle {
-	text-align: right !important;
+  text-align: right !important;
 }
 
 .dextable thead tr {
-	font-style: normal;
-	font-weight: 500;
-	font-size: 12px;
-	line-height: 120%;
-	text-transform: uppercase;
-	color: $dark-mode-lightblue;
-	text-align: right;
-	letter-spacing: 0px;
-	border-bottom: 1px solid var(--color-blue);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 120%;
+  text-transform: uppercase;
+  color: $dark-mode-lightblue;
+  text-align: right;
+  letter-spacing: 0px;
+  border-bottom: 1px solid var(--color-blue);
 }
 
 .tableHeaders {
-	font-style: normal;
-	font-weight: 500;
-	font-size: 12px;
-	line-height: 120%;
-	text-transform: uppercase;
-	color: var(--color-grey);
-	text-align: right;
-	letter-spacing: 0px;
-	border-bottom: 1px solid var(--color-blue);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 120%;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  text-align: right;
+  letter-spacing: 0px;
+  border-bottom: 1px solid var(--color-blue);
 }
 
 .sortButtonsRow {
@@ -75,47 +75,47 @@
 }
 
 .sortButton {
-	height: 35px;
-	width: 100%;
-	background-color: black;
-	opacity: 0.5;
-	transition-duration: 0.4s;
-	color: white;
-	border: 0px;
+  height: 35px;
+  width: 100%;
+  background-color: black;
+  opacity: 0.5;
+  transition-duration: 0.4s;
+  color: white;
+  border: 0px;
 }
 
 .sortButton:hover {
-	cursor: pointer;
-	background-color: #303030;
+  cursor: pointer;
+  background-color:#303030;
 }
 
 .tableHeaders td {
-	padding: 15px 15px 16px 12px;
-	line-height: 25px;
-	text-align: right;
-	border-right: 1px solid rgb(97, 97, 97);
+  padding: 15px 15px 16px 12px;
+  line-height: 25px;
+  text-align: right;
+  border-right: 1px solid lightgray;
 }
 
 .dextable td.section {
-	text-align: right;
-	border-right: 1px solid rgb(97, 97, 97);
+  text-align: right;
+  border-right: 1px solid lightgray;
 }
 
 .dextable tbody tr {
-	border-bottom: 1px solid lightgray;
-	font-size: 0.9em;
-	font-weight: 500;
+  border-bottom: 1px solid lightgray;
+  font-size: 0.9em;
+  font-weight: 500;
 }
 
 .dextable tbody tr:last-of-type {
-	border-bottom: 2px solid lightgray;
+  border-bottom: 2px solid lightgray;
 }
 
 .dextable tbody td {
-	padding: 20px;
-	line-height: 25px;
-	text-align: right;
-	border-right: 1px solid rgb(97, 97, 97);
+  padding: 20px;
+  line-height: 25px;
+  text-align: right;
+  border-right: 1px solid lightgray;
 }
 
 .redFont {
@@ -150,15 +150,15 @@
 }
 
 .displaybutton {
-	display: flex;
-	justify-content: space-evenly;
-	gap: 10px;
-	float: right;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 10px;
+  float: right;
 
-	@include tablet {
-		flex-direction: column;
-		float: left;
-	}
+  @include tablet {
+    flex-direction: column;
+    float: left; 
+  }
 }
 
 .wallet_loading {
@@ -179,41 +179,39 @@
 }
 
 .displaybutton span.upgradeButton {
-	padding: 5px 12px;
-	text-align: center;
-	display: inline-block;
-	border-radius: 4px;
-	background-color: rgba(94, 244, 164, 0.15);
-	cursor: pointer;
-	color: #10bb6e;
+  padding: 5px 12px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: rgba(94, 244, 164, 0.15);
+  cursor: pointer;
+  color: #10bb6e;
 }
 
 .displaybutton span.downgradeButton {
-	padding: 5px 12px;
-	color: #e94c31;
-	border-radius: 4px;
-	cursor: pointer;
-	background-color: rgba(237, 87, 120, 0.15);
+  padding: 5px 12px;
+  color: #e94c31;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: rgba(237, 87, 120, 0.15);
 }
 
 .displaybutton span.disabledButton {
-	padding: 5px 12px;
-	color: #b7c2d6;
-	border-radius: 4px;
-	background-color: rgb(225, 232, 248);
-	pointer-events: none;
+  padding: 5px 12px;
+  color: #b7c2d6;
+  border-radius: 4px;
+  background-color: rgb(225, 232, 248);
+  pointer-events: none;
 }
 
 .wrapper {
-	height: 100%;
-	width: 100%;
-	padding: 2.5em;
-	padding-top: 1vh;
-	@include tablet {
-		max-width: 100vw;
-		height: 100%;
-		padding: 0em;
-	}
+  height: 100%;
+  width: 100%;
+  padding-top: 1vh;
+  @include tablet {
+    max-width: 100vw;
+    height: 100%;
+  }
 }
 
 .container {
@@ -264,10 +262,10 @@
 }
 
 .hideLowBalanceCheckbox {
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-	color: white;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: white;
 }
 
 label {
@@ -322,13 +320,13 @@ label {
 
 /* Style the checkmark/indicator */
 .container .checkmark:after {
-	width: 5px;
-	height: 10px;
-	border: solid rgba(255, 255, 255, 0.591);
-	border-width: 0 3px 3px 0;
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	transform: rotate(45deg);
+  width: 5px;
+  height: 10px;
+  border: solid rgba(255, 255, 255, 0.591);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .settings_mob {
@@ -369,13 +367,13 @@ label {
 		padding: 0;
 	}
 
-	.dextable th,
-	.dextable td {
-		word-break: keep-all;
-		line-height: 13px;
-		text-align: center;
-		border-right: 1px solid rgba(161, 175, 202, 0.234);
-	}
+  .dextable th,
+  .dextable td {
+    word-break: keep-all;
+    line-height: 25px;
+    text-align: center;
+    border-right: 1px solid rgba(161, 175, 202, 0.234);
+  }
 }
 
 @media only screen and (max-width: 359px) {

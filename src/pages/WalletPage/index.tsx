@@ -9,11 +9,12 @@ interface IProps {}
 
 const WalletPage: FC<IProps> = () => {
 	const { address, balances } = useShallowSelector(selectMain);
+	const { t } = useTranslation();
 
 	return (
 		<div className={styles.content_special}>
 			<div className={styles.wallet}>
-				<UpgradeContainer balance={balances && balances[RICAddress]} address={address || 'Connect Wallet'} />
+				<UpgradeContainer balance={balances && balances[RICAddress]} address={address || t('Connect Wallet')} />
 			</div>
 		</div>
 	);

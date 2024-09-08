@@ -16,25 +16,25 @@
 }
 
 .input {
-	background: #484e51;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 14px;
-	line-height: 140%;
-	color: $dark-mode-lightblue;
-	@include tablet {
-		padding: 10px 0 10px 20px;
-	}
+  background: #484e51;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 140%;
+  color: $dark-mode-lightblue;
+  @include tablet {
+    padding: 10px 0 10px 20px;
+  }
 }
 
 .container_input {
-	background: #484e51;
-	border-radius: 8px;
-	width: 274px;
-	height: 41px;
-	@include tablet {
-		width: 100%;
-	}
+  background: #484e51;
+  border-radius: 8px;
+  width: 274px;
+  height: 41px;
+  @include tablet {
+    width: 100%;
+  }
 }
 
 .input_wrap {

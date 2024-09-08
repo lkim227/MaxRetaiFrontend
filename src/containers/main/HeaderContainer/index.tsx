@@ -17,7 +17,7 @@ interface IProps {
 
 export const HeaderContainer: FC<IProps> = ({ address, balance }) => {
 	const location = useLocation();
-	const { aggregatedRICRewards } = useShallowSelector(selectMain);
+	const { t } = useTranslation();
 
 	const [open, setOpen] = useState(false);
 
@@ -30,49 +30,49 @@ export const HeaderContainer: FC<IProps> = ({ address, balance }) => {
 			case Routes.Wallet:
 				return (
 					<>
-						<div>{'Wallet'}</div>
+						<div>{t('Wallet')}</div>
 					</>
 				);
 			case Routes.Invest:
 				return (
 					<>
-						<div>{'Invest'}</div>
+						<div>{t('Invest')}</div>
 					</>
 				);
 			case Routes.Distributions:
 				return (
 					<>
-						<div>{'Distributions'}</div>
+						<div>{t('Distributions')}</div>
 					</>
 				);
 			case Routes.Banks:
 				return (
 					<>
-						<div>{'Banks'}</div>
+						<div>{t('Banks')}</div>
 					</>
 				);
 			case Routes.Vaults:
 				return (
 					<>
-						<div>{'Vaults'}</div>
+						<div>{t('Vaults')}</div>
 					</>
 				);
 			case Routes.InvestLaunchpads:
 				return (
 					<>
-						<div>{'Launchpad'}</div>
+						<div>{t('Launchpad')}</div>
 					</>
 				);
 			case Routes.RecentActivity:
 				return (
 					<>
-						<div>{'Activity'}</div>
+						<div>{t('Activity')}</div>
 					</>
 				);
 			case Routes.Refer:
 				return (
 					<>
-						<div>{'Refer'}</div>
+						<div>{t('Refer')}</div>
 					</>
 				);
 			default:
@@ -93,30 +93,16 @@ export const HeaderContainer: FC<IProps> = ({ address, balance }) => {
 
 					<div className={styles.links}>
 						<Link to={Routes.Invest} className={styles.dca_link} activeClassName={styles.active}>
-							<div>{'Invest'}</div>
+							<div>{t('Invest')}</div>
 						</Link>
 						<Link to={Routes.Wallet} className={styles.upgrade_link} activeClassName={styles.active}>
-							<div>{'Wallet'}</div>
+							<div>{t('Wallet')}</div>
 						</Link>
 					</div>
 
-					<div
-						style={{
-							display: 'flex',
-							alignItems: 'center',
-							flexDirection: 'row',
-							justifyContent: 'space-between',
-						}}
-					>
-						<div className={styles.reward}>
-							<h5>Rewards: {aggregatedRICRewards && Number(aggregatedRICRewards).toFixed(2)} RIC/mo</h5>
-						</div>
-						<div style={{ width: '20px' }} />
-						<div className={styles.settings_wrap}>
-							<UserSettings className={styles.dot} ricBalance={balance} account={address} />
-						</div>
+					<div className={styles.settings_wrap}>
+						<UserSettings className={styles.dot} ricBalance={balance} account={address} />
 					</div>
-
 					<div className={styles.mob_head}>
 						<HeaderText />
 					</div>

@@ -136,7 +136,7 @@ export const ReferContainer: React.FC<IProps> = () => {
 	if (!address) {
 		return (
 			<div className={styles.container_explain}>
-				{`You have to connect your wallet to be able to create referrals`}
+				{t('You have to connect your wallet to be able to create referrals')}
 			</div>
 		);
 	}
