@@ -1,4 +1,4 @@
-import { SwapABI } from 'constants/ABIs/swap';
+import { SwapABI } from 'constants/abis';
 import { SwapContract } from 'constants/contracts';
 import { gas } from 'api/gasEstimator';
 

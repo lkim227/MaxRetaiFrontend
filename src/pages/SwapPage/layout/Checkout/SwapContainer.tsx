@@ -18,11 +18,9 @@ import axios from 'axios';
 import { useShallowSelector } from 'hooks/useShallowSelector';
 import { selectMain } from 'store/main/selectors';
 import { swap } from 'utils/swap/swap';
-import { superTokenABI } from 'constants/ABIs/supertoken';
+import { superTokenABI } from 'constants/abis';
 import { SwapForm } from './SwapForm';
 import { SwapContract } from 'constants/contracts';
-import { FontIcon, FontIconName } from 'components/common/FontIcon';
-import styles from './styles.module.scss';
 
 export default function SwapContainer() {
 	const tokens = [
@@ -76,24 +74,17 @@ export default function SwapContainer() {
 	const [amountIn, setAmountIn] = React.useState('');
 	const [minAmountOut, setMinAmountOut] = React.useState('');
 	const [approved, setApprove] = React.useState(false);
-	const [success, setSuccess] = React.useState(0);
-	const [slippageTolerance, setSlippageTolerance] = React.useState('0.02');
-	const [toTokenName, setToTokenName] = React.useState('');
+	const [success, setSuccess] = React.useState(false);
 	const [tx, setTx] = React.useState('');
 
 	const coingeckoUrl =
 		'https://api.coingecko.com/api/v3/simple/price?ids=richochet%2Cusd-coin%2Cdai%2Cmaker%2Cethereum%2Cwrapped-bitcoin%2Cidle%2Cmatic-network%2Csushi&vs_currencies=usd';
 
 	React.useEffect(() => {
-		axios
-			.get(coingeckoUrl)
-			.then((response) => {
-				setGeckoPriceList(response.data);
-			})
-			.catch((error: any) => {
-				console.log('error', error);
-				return;
-			});
+		axios.get(coingeckoUrl).then((response) => {
+			setGeckoPriceList(response.data);
+			console.log(response);
+		});
 	}, []);
 
 	React.useEffect(() => {
@@ -120,18 +111,18 @@ export default function SwapContainer() {
 			toPrice = toPrice.usd;
 			// @ts-ignore
 			let outPutPrice = priceAmountIn / toPrice;
-			let fee = +slippageTolerance;
+			let fee = 0.02;
 			let outputFee = outPutPrice * fee;
 			let FinalOutputAmount = outPutPrice - outputFee;
 
-			setMinAmountOut(FinalOutputAmount.toFixed(6));
+			setMinAmountOut(FinalOutputAmount.toFixed(4));
 		} else {
 			return;
 		}
-	}, [amountIn, fromSymbol, toSymbol, slippageTolerance, geckoPriceList]);
+	}, [amountIn, fromSymbol, toSymbol]);
 
 	const handleSetFromToken = (value: any) => {
-		let fromToken = tokens.filter((token) => token.address === value);
+		let fromToken = tokens.filter((token) => token.address == value);
 		let symbol = fromToken[0].symbol;
 		let underlying = fromToken[0].underlyingToken;
 
@@ -141,18 +132,30 @@ export default function SwapContainer() {
 	};
 
 	const handleSetToToken = (value: any) => {
-		let fromToken = tokens.filter((token) => token.address === value);
+		let fromToken = tokens.filter((token) => token.address == value);
 		let symbol = fromToken[0].symbol;
 		let underlying = fromToken[0].underlyingToken;
-		let name = fromToken[0].name;
 
 		setToSupertoken(value);
 		setToSymbol(symbol);
 		setUnderlyingToken2(underlying);
-		setToTokenName(name);
 	};
 
 	const SwapTokens = React.useCallback(async () => {
+		let hasUnderlyingFrom;
+		let hasUnderlyingTo;
+
+		if (underlyingToken1 === fromSupertoken) {
+			hasUnderlyingFrom = false;
+		} else {
+			hasUnderlyingFrom = true;
+		}
+		if (underlyingToken2 === toSupertoken) {
+			hasUnderlyingTo = false;
+		} else {
+			hasUnderlyingTo = true;
+		}
+
 		setLoading(true);
 
 		let bigNumAmountIn;
@@ -160,15 +163,8 @@ export default function SwapContainer() {
 		let path = [underlyingToken1, underlyingToken2];
 
 		bigNumAmountIn = await Web3.utils.toWei(amountIn, 'ether');
+		bigNumMinAmountOut = await Web3.utils.toWei(minAmountOut, 'ether');
 
-		if (toTokenName === 'WBTCx') {
-			bigNumMinAmountOut = +minAmountOut * 10 ** 8;
-		} else if (toTokenName === 'USDCx') {
-			bigNumMinAmountOut = +minAmountOut * 10 ** 6;
-		} else {
-			bigNumMinAmountOut = await Web3.utils.toWei(minAmountOut, 'ether');
-		}
-		console.log(bigNumMinAmountOut, 'this is big num amount out');
 		try {
 			swap(
 				{
@@ -183,25 +179,18 @@ export default function SwapContainer() {
 				},
 				web3,
 				address,
-			)
-				.then((res) => {
-					if (res === undefined) {
-						setSuccess(2);
-						setLoading(false);
-						return;
-					}
-					setLoading(false);
-					setSuccess(1);
-					setTx(res.transactionHash);
-				})
-				.catch((error: string) => console.log(error));
+			).then((res) => {
+				console.log(res);
+				setLoading(false);
+				setSuccess(true);
+				setTx(res.transactionHash);
+			});
 		} catch (e) {
-			setSuccess(0);
+			setSuccess(false);
 			console.log(e);
 			setLoading(false);
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [fromSupertoken, toSupertoken, web3, address, amountIn, minAmountOut, slippageTolerance]);
+	}, [fromSupertoken, toSupertoken, web3, address, amountIn, minAmountOut]);
 
 	const ApproveSwapTokens = React.useCallback(async () => {
 		let web3ToUse;
@@ -234,7 +223,7 @@ export default function SwapContainer() {
 				setLoading(false);
 				console.log(error);
 			});
-	}, [amountIn, fromSupertoken, address, web3]);
+	}, [amountIn, fromSupertoken, address]);
 
 	const handleSetAmountIn = (value: string) => {
 		setAmountIn(value);
@@ -244,13 +233,9 @@ export default function SwapContainer() {
 		setMinAmountOut(value);
 	};
 
-	const handleSetSlippageTolerance = (value: string) => {
-		setSlippageTolerance(value);
-	};
-
 	return (
 		<div>
-			{success === 1 ? (
+			{success ? (
 				<div
 					style={{
 						color: 'white',
@@ -276,23 +261,8 @@ export default function SwapContainer() {
 					<a style={{ color: 'lightblue' }} href={`https://polygonscan.com/tx/${tx}`} target={'blank'}>
 						View transaction
 					</a>
-					<br />
-					<br />
-					<button
-						style={{
-							backgroundColor: '#678eb5',
-							color: 'white',
-							border: 'none',
-							borderRadius: '12px',
-							padding: '1em',
-							cursor: 'pointer',
-						}}
-						onClick={() => setSuccess(0)}
-					>
-						Return
-					</button>
 				</div>
-			) : success === 0 ? (
+			) : (
 				<SwapForm
 					tokens={tokens}
 					ApproveSwapTokens={ApproveSwapTokens}
@@ -301,37 +271,14 @@ export default function SwapContainer() {
 					handleSetToToken={handleSetToToken}
 					handleSetAmountIn={handleSetAmountIn}
 					handleSetMinAmountOut={handleSetMinAmountOut}
-					handleSetSlippageTolerance={handleSetSlippageTolerance}
 					fromSupertoken={fromSupertoken}
 					toSupertoken={toSupertoken}
 					amountIn={amountIn}
-					toName={toTokenName}
 					toSymbol={toSymbol}
 					minAmountOut={minAmountOut}
 					approved={approved}
 					isLoading={loading}
 				/>
-			) : success === 2 ? (
-				<div className={styles.fail_wrapper}>
-					<h3 style={{ color: 'darkred' }}>We failed to Swap your tokens.</h3>
-					<FontIcon name={FontIconName.Close} size={26} />
-					<p style={{ color: 'white' }}>Please check your inputs and try again.</p>
-					<button
-						style={{
-							backgroundColor: '#678eb5',
-							color: 'white',
-							border: 'none',
-							borderRadius: '12px',
-							padding: '1em',
-							cursor: 'pointer',
-						}}
-						onClick={() => setSuccess(0)}
-					>
-						Try again
-					</button>
-				</div>
-			) : (
-				''
 			)}
 		</div>
 	);
