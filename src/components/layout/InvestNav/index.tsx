@@ -10,92 +10,100 @@ import styles from './styles.module.scss';
 import { RICOCHET_LEGACY_LINK, SUPPORT, TUTORIAL_LINK } from 'utils/helpers';
 
 export const InvestNav = () => {
-	const userStreams = useShallowSelector(selectUserStreams);
+  const userStreams = useShallowSelector(selectUserStreams);
+  const location = useLocation();
+  return (
+    <div className={styles.nav_container}>
+      {userStreams.length > 0 && (
 
-	return (
-		<div className={styles.nav_container}>
-			<div className={styles.navscroller}>
-				{userStreams.length !== 0 ? (
-					<NavLink
-						className={styles.nav_link}
-						exact
-						activeClassName={styles.nav_link_active}
-						to={Routes.InvestStreams}
-					>
-						<FontIcon name={FontIconName.RicoUser} size={16} />
-						<div className={styles.nav_text}>{`${'Active Streams'} (${userStreams.length})`} </div>
-					</NavLink>
-				) : null}
+      <NavLink
+        className={styles.nav_link}
+        exact
+        activeClassName={styles.nav_link_active}
+        to={Routes.InvestStreams}
+      >
+        <FontIcon name={FontIconName.RicoUser} size={12} />
+  &nbsp;Streams (
+        {userStreams.length}
+        )
+      </NavLink>
+      )}
 
-				<NavLink to={Routes.Wallet} className={styles.nav_link} activeClassName={styles.nav_link_active}>
-					<FontIcon name={FontIconName.Wallet} size={16} />
-					<div className={styles.nav_text}>{'Wallet'}</div>
-				</NavLink>
+      <Link
+        to={Routes.Wallet}
+        className={styles.nav_link_desktop_only}
+        activeClassName={styles.nav_link_active}
+      >
+        <img src="https://cdn0.iconfinder.com/data/icons/zondicons/20/wallet-512.png" alt="wallet icon" className={styles.wallet_icon} />
+        &nbsp;&nbsp;Wallet
 
-				<NavLink className={styles.nav_link} exact activeClassName={styles.nav_link_active} to={Routes.Invest}>
-					<FontIcon name={FontIconName.Swap} size={16} />
-					<div className={styles.nav_text}>{'Market'}</div>
-				</NavLink>
+      </Link>
 
-				<NavLink to={Routes.Swap} className={styles.nav_link} activeClassName={styles.nav_link_active}>
-					<FontIcon name={FontIconName.Loop} size={16} />
-					<div className={styles.nav_text}>{'Swap'}</div>
-				</NavLink>
+      <NavLink
+        className={styles.nav_link}
+        exact
+        activeClassName={styles.nav_link_active}
+        to={Routes.Invest}
+      >
+        <FontIcon name={FontIconName.Swap} size={12} />
+          &nbsp;Markets
+      </NavLink>
 
-				<NavLink to={Routes.Claim} className={styles.nav_link} activeClassName={styles.nav_link_active}>
-					<img
-						alt="logo for claim route"
-						src={gift}
-						width="16"
-						height="16"
-						style={{ filter: 'invert(1)', marginRight: '3px' }}
-					/>
-					<div className={styles.nav_text}>{'Gifts'}</div>
-				</NavLink>
+      <NavLink
+        className={styles.nav_link}
+        activeClassName={styles.nav_link_active}
+        to={Routes.InvestLiquidityMarkets}
+      >
+        <FontIcon name={FontIconName.Loop} size={12} />
+        &nbsp;Liquidity Pools
+      </NavLink>
 
-				<NavLink className={styles.nav_link} activeClassName={styles.nav_link_active} to={Routes.Payments}>
-					<img src={currency} alt="currency" width="16" height="16" style={{ filter: 'invert(1)' }} />
-					<div className={styles.nav_text}>{'Payments'}</div>
-				</NavLink>
-				<NavLink
-					className={styles.nav_link}
-					activeClassName={styles.nav_link_active}
-					to={Routes.InvestLaunchpads}
-				>
-					<FontIcon name={FontIconName.Shuttle} size={16} />
-					<div className={styles.nav_text}>{'Launchpad'}</div>
-				</NavLink>
+      <NavLink
+        className={styles.nav_link}
+        activeClassName={styles.nav_link_active}
+        to={Routes.InvestLaunchpads}
+      >
+        <FontIcon name={FontIconName.Shuttle} size={12} />
+  &nbsp;Launchpads
+      </NavLink>
 
-				<NavLink
-					className={styles.nav_link}
-					exact
-					to={Routes.RecentActivity}
-					activeClassName={styles.nav_link_active}
-				>
-					<FontIcon name={FontIconName.Activity} size={16} />
-					<div className={styles.nav_text}>{'Activity'}</div>
-				</NavLink>
+      <NavLink
+        className={styles.nav_link}
+        activeClassName={styles.nav_link_active}
+        to={Routes.Banks}
+      >
+        <FontIcon name={FontIconName.Bank} size={12} />
+  &nbsp;Banks
+      </NavLink>
 
-				<NavLink to={Routes.Refer} className={styles.nav_link} activeClassName={styles.nav_link_active}>
-					<FontIcon name={FontIconName.Refer} size={16} />
-					<div className={styles.nav_text}>{'Refer'}</div>
-				</NavLink>
+      {(location.pathname === Routes.Banks || location.pathname === Routes.Vaults) && (
+      <NavLink
+        className={cx(styles.nav_link)}
+        activeClassName={styles.nav_link_active}
+        to={Routes.Vaults}
+      >
+        <FontIcon name={FontIconName.Lock} size={16} />
+        &nbsp;Vault
+      </NavLink>
+      )}
 
-				<a href={SUPPORT} className={styles.nav_link} target="_blank" rel={'noreferrer'}>
-					<div className={styles.nav_text_tutorial}>{'Support'}</div>
-					<FontIcon name={FontIconName.External} size={16} />
-				</a>
+      <NavLink
+        to={Routes.Refer}
+        className={styles.nav_link_desktop_only}
+        activeClassName={styles.nav_link_active}
+      >
+        <div>Refer</div>
+      </NavLink>
 
-				<a className={styles.nav_link} href={TUTORIAL_LINK} target="_blank" rel="noreferrer">
-					<div className={styles.nav_text_tutorial}>{'Tutorial'}</div>
-					<FontIcon name={FontIconName.External} size={16} />
-				</a>
+      <NavLink
+        className={styles.link}
+        to={{ pathname: TUTORIAL_LINK }}
+        target="_blank"
+      >
+        Tutorial&nbsp;
+        <FontIcon name={FontIconName.External} size={16} />
+      </NavLink>
 
-				<a href={RICOCHET_LEGACY_LINK} className={styles.nav_link} target="_blank" rel={'noreferrer'}>
-					<div className={styles.nav_text_tutorial}>{'Ricochet V2'}</div>
-					<FontIcon name={FontIconName.External} size={16} />
-				</a>
-			</div>
-		</div>
-	);
+    </div>
+  );
 };
