@@ -27,38 +27,38 @@ export function* sweepQueryFlow(): any {
 	const streamedSoFarMap: Record<string, number> = {};
 	const receivedSoFarMap: Record<string, number> = {};
 
-	if (address) {
-		const [streamed, received] = yield all([call(queryStreams, address), call(queryReceived, address)]);
-		(streamed?.data?.data?.streams || []).forEach((stream: any) => {
-			const streamedSoFar = streamedSoFarMap[`${stream.token.id}-${stream.receiver.id}`] || 0;
-			Object.assign(streamedSoFarMap, {
-				[`${stream.token.id}-${stream.receiver.id}`]:
-					Number(streamedSoFar) +
-					Number(
-						calculateStreamedSoFar(
-							stream.streamedUntilUpdatedAt,
-							stream.updatedAtTimestamp,
-							stream.currentFlowRate,
-						),
-					),
-			});
-		});
+  if (address) {
+    const [streamed, received] = yield all([
+      call(queryStreams, address),
+      call(queryReceived, address),
+    ]);
 
-		(received?.data?.data?.streams || []).forEach((stream: any) => {
-			const receivedSoFar = receivedSoFarMap[`${stream.token.id}-${stream.sender.id}`] || 0;
-			Object.assign(receivedSoFarMap, {
-				[`${stream.token.id}-${stream.sender.id}`]:
-					Number(receivedSoFar) +
-					Number(
-						calculateStreamedSoFar(
-							stream.streamedUntilUpdatedAt,
-							stream.updatedAtTimestamp,
-							stream.currentFlowRate,
-						),
-					),
-			});
-		});
-	}
+    console.log(streamed, received);
+
+    (streamed?.data?.data?.streams || [])
+      .forEach((stream:any) => {
+        const streamedSoFar = streamedSoFarMap[`${stream.token.id}-${stream.receiver.id}`] || 0;
+        Object.assign(streamedSoFarMap, {
+          [`${stream.token.id}-${stream.receiver.id}`]: Number(streamedSoFar) + Number(calculateStreamedSoFar(
+            stream.streamedUntilUpdatedAt,
+            stream.updatedAtTimestamp,
+            stream.currentFlowRate,
+          )),
+        });
+      });
+
+    (received?.data?.data?.streams || [])
+      .forEach((stream:any) => {
+        const receivedSoFar = receivedSoFarMap[`${stream.token.id}-${stream.sender.id}`] || 0;
+        Object.assign(receivedSoFarMap, {
+          [`${stream.token.id}-${stream.sender.id}`]: Number(receivedSoFar) + Number(calculateStreamedSoFar(
+            stream.streamedUntilUpdatedAt,
+            stream.updatedAtTimestamp,
+            stream.currentFlowRate,
+          )),
+        });
+      });
+  }
 
 	const flows: { [key: string]: { flowsOwned: Flow[]; flowsReceived: Flow[] } } = {};
 	exchangeContractsAddresses.forEach((el, i) => {
@@ -101,15 +101,16 @@ export function* sweepQueryFlow(): any {
 		return { perso: subsidyRatePerso, total: subsidyRateTotal, endDate };
 	}
 
-	function buildFlowQuery(flowKey: string) {
-		const flowConfigObject = flowConfig.find((o) => o.flowKey === flowKey);
-		const exchangeAddress = flowConfigObject?.superToken || '';
-		const tokenAxAddress = flowConfigObject?.tokenA || '';
-		const tokenAtokenBFlows = flows[exchangeAddress];
-		const tokenAtokenBFlowsReceived = getReceviedFlows(tokenAtokenBFlows.flowsReceived, tokenAxAddress, address);
+  function buildFlowQuery(flowKey:string) {
+    const flowConfigObject = flowConfig.find((o) => o.flowKey === flowKey);
+    const exchangeAddress = flowConfigObject?.superToken || '';
+    const tokenAxAddress = flowConfigObject?.tokenA || '';
+    const tokenAtokenBFlows = flows[exchangeAddress];
+    const tokenAtokenBFlowsReceived = getReceviedFlows(tokenAtokenBFlows.flowsReceived,
+      tokenAxAddress, address);
 
-		let streamedSoFar;
-		let receivedSoFar;
+    let streamedSoFar;
+    let receivedSoFar;
 
 		if (Object.keys(streamedSoFarMap).length) {
 			streamedSoFar = streamedSoFarMap[`${tokenAxAddress.toLowerCase()}-${exchangeAddress.toLowerCase()}`];
@@ -139,53 +140,103 @@ export function* sweepQueryFlow(): any {
 		};
 	}
 
-	const usdcRicFlowQuery = buildFlowQuery(FlowEnum.usdcRicFlowQuery);
-	const ricRexShirtFlowQuery = buildFlowQuery(FlowEnum.ricRexShirtFlowQuery);
-	const ricRexHatFlowQuery = buildFlowQuery(FlowEnum.ricRexHatFlowQuery);
-	const twoWayusdcWethFlowQuery = buildFlowQuery(FlowEnum.twoWayusdcWethFlowQuery);
-	const twoWayusdcWbtcFlowQuery = buildFlowQuery(FlowEnum.twoWayusdcWbtcFlowQuery);
-	const twoWaywethUsdcFlowQuery = buildFlowQuery(FlowEnum.twoWaywethUsdcFlowQuery);
-	const twoWaywbtcUsdcFlowQuery = buildFlowQuery(FlowEnum.twoWaywbtcUsdcFlowQuery);
-	const twoWayUsdcRicFlowQuery = buildFlowQuery(FlowEnum.twoWayUsdcRicFlowQuery);
-	const twoWayRicUsdcFlowQuery = buildFlowQuery(FlowEnum.twoWayRicUsdcFlowQuery);
-	const twoWayMaticUsdcFlowQuery = buildFlowQuery(FlowEnum.twoWayMaticUsdcFlowQuery);
-	const twoWayUsdcMaticFlowQuery = buildFlowQuery(FlowEnum.twoWayUsdcMaticFlowQuery);
-	const usdcDaiFlowQuery = buildFlowQuery(FlowEnum.usdcDaiFlowQuery);
-	const daiUsdcFlowQuery = buildFlowQuery(FlowEnum.daiUsdcFlowQuery);
+  const usdcRicFlowQuery = buildFlowQuery(FlowEnum.usdcRicFlowQuery);
+  const twoWayusdcWethFlowQuery = buildFlowQuery(FlowEnum.twoWayusdcWethFlowQuery);
+  const twoWayusdcWbtcFlowQuery = buildFlowQuery(FlowEnum.twoWayusdcWbtcFlowQuery);
+  const twoWaywethUsdcFlowQuery = buildFlowQuery(FlowEnum.twoWaywethUsdcFlowQuery);
+  const twoWaywbtcUsdcFlowQuery = buildFlowQuery(FlowEnum.twoWaywbtcUsdcFlowQuery);
+  const twoWayDaiWethFlowQuery = buildFlowQuery(FlowEnum.twoWayDaiWethFlowQuery);
+  const twoWayWethDaiFlowQuery = buildFlowQuery(FlowEnum.twoWayWethDaiFlowQuery);
+  const twoWayUsdcRicFlowQuery = buildFlowQuery(FlowEnum.twoWayUsdcRicFlowQuery);
+  const twoWayRicUsdcFlowQuery = buildFlowQuery(FlowEnum.twoWayRicUsdcFlowQuery);
+  // const twoWayMaticUsdcFlowQuery = buildFlowQuery(FlowEnum.twoWayMaticUsdcFlowQuery);
+  // const twoWayUsdcMaticFlowQuery = buildFlowQuery(FlowEnum.twoWayUsdcMaticFlowQuery);
+  // const twoWayMaticDaiFlowQuery = buildFlowQuery(FlowEnum.twoWayMaticDaiFlowQuery);
+  // const twoWayDaiMaticFlowQuery = buildFlowQuery(FlowEnum.twoWayDaiMaticFlowQuery);
+  // const twoWayWbtcDaiFlowQuery = buildFlowQuery(FlowEnum.twoWayWbtcDaiFlowQuery);
+  // const twoWayDaiWbtcFlowQuery = buildFlowQuery(FlowEnum.twoWayDaiWbtcFlowQuery);
+  // const daiEthFlowQuery = buildFlowQuery(FlowEnum.daiEthFlowQuery);
+  // const ethDaiFlowQuery = buildFlowQuery(FlowEnum.ethDaiFlowQuery);
+  // const daiMkrFlowQuery = buildFlowQuery(FlowEnum.daiMkrFlowQuery);
+  // const mkrDaiFlowQuery = buildFlowQuery(FlowEnum.mkrDaiFlowQuery);
+  // const usdcMkrFlowQuery = buildFlowQuery(FlowEnum.usdcMkrFlowQuery);
+  // const mkrUsdcFlowQuery = buildFlowQuery(FlowEnum.mkrUsdcFlowQuery);
+  // const daiMaticFlowQuery = buildFlowQuery(FlowEnum.daiMaticFlowQuery);
+  // const maticDaiFlowQuery = buildFlowQuery(FlowEnum.maticDaiFlowQuery);
+  // const usdcMaticFlowQuery = buildFlowQuery(FlowEnum.usdcMaticFlowQuery);
+  // const maticUsdcFlowQuery = buildFlowQuery(FlowEnum.maticUsdcFlowQuery);
+  // const usdcSlpEthFlowQuery = buildFlowQuery(FlowEnum.usdcSlpEthFlowQuery);
+  // const usdcIdleFlowQuery = buildFlowQuery(FlowEnum.usdcIdleFlowQuery);
 
-	function getSubsidyRateFromQuery(query: any) {
-		return getSubsidyRate(query.flowKey, query.placeholder, query.flowsOwned);
-	}
+  function getSubsidyRateFromQuery(query:any) {
+    return getSubsidyRate(
+      query.flowKey, query.placeholder, query.flowsOwned,
+    );
+  }
+  // WORKING
+  usdcRicFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, usdcRicFlowQuery);
+  twoWayusdcWethFlowQuery.subsidyRate =
+      yield call(getSubsidyRateFromQuery, twoWayusdcWethFlowQuery);
+  twoWayusdcWbtcFlowQuery.subsidyRate =
+      yield call(getSubsidyRateFromQuery, twoWayusdcWbtcFlowQuery);
+  twoWaywethUsdcFlowQuery.subsidyRate =
+      yield call(getSubsidyRateFromQuery, twoWaywethUsdcFlowQuery);
+  twoWaywbtcUsdcFlowQuery.subsidyRate =
+      yield call(getSubsidyRateFromQuery, twoWaywbtcUsdcFlowQuery);
+  twoWayDaiWethFlowQuery.subsidyRate =
+      yield call(getSubsidyRateFromQuery, twoWayDaiWethFlowQuery);
+  twoWayWethDaiFlowQuery.subsidyRate =
+      yield call(getSubsidyRateFromQuery, twoWayWethDaiFlowQuery);
+  twoWayUsdcRicFlowQuery.subsidyRate =
+      yield call(getSubsidyRateFromQuery, twoWayUsdcRicFlowQuery);
+  twoWayRicUsdcFlowQuery.subsidyRate =
+      yield call(getSubsidyRateFromQuery, twoWayRicUsdcFlowQuery);
+  // twoWayMaticUsdcFlowQuery.subsidyRate =
+  //     yield call(getSubsidyRateFromQuery, twoWayMaticUsdcFlowQuery);
+  // twoWayUsdcMaticFlowQuery.subsidyRate =
+  //     yield call(getSubsidyRateFromQuery, twoWayUsdcMaticFlowQuery);
+  // twoWayMaticDaiFlowQuery.subsidyRate =
+  //     yield call(getSubsidyRateFromQuery, twoWayMaticDaiFlowQuery);
+  // twoWayDaiMaticFlowQuery.subsidyRate =
+  //     yield call(getSubsidyRateFromQuery, twoWayDaiMaticFlowQuery);
+  // twoWayWbtcDaiFlowQuery.subsidyRate =
+  //     yield call(getSubsidyRateFromQuery, twoWayWbtcDaiFlowQuery);
+  // twoWayDaiWbtcFlowQuery.subsidyRate =
+  //     yield call(getSubsidyRateFromQuery, twoWayDaiWbtcFlowQuery);
+  // daiEthFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, daiEthFlowQuery);
+  // ethDaiFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, ethDaiFlowQuery);
+  // daiMkrFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, daiMkrFlowQuery);
+  // mkrDaiFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, mkrDaiFlowQuery);
+  // usdcMkrFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, usdcMkrFlowQuery);
+  // mkrUsdcFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, mkrUsdcFlowQuery);
+  // daiMaticFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, daiMaticFlowQuery);
+  // maticDaiFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, maticDaiFlowQuery);
 
-	usdcRicFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, usdcRicFlowQuery);
-	ricRexShirtFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, ricRexShirtFlowQuery);
-	ricRexHatFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, ricRexHatFlowQuery);
-	twoWayusdcWethFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, twoWayusdcWethFlowQuery);
-	twoWayusdcWbtcFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, twoWayusdcWbtcFlowQuery);
-	twoWaywethUsdcFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, twoWaywethUsdcFlowQuery);
-	twoWaywbtcUsdcFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, twoWaywbtcUsdcFlowQuery);
-	twoWayUsdcRicFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, twoWayUsdcRicFlowQuery);
-	twoWayRicUsdcFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, twoWayRicUsdcFlowQuery);
-	twoWayMaticUsdcFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, twoWayMaticUsdcFlowQuery);
-	twoWayUsdcMaticFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, twoWayUsdcMaticFlowQuery);
-	usdcDaiFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, usdcDaiFlowQuery);
-	daiUsdcFlowQuery.subsidyRate = yield call(getSubsidyRateFromQuery, daiUsdcFlowQuery);
-
-	yield put(
-		mainSetState({
-			usdcRicFlowQuery,
-			ricRexShirtFlowQuery,
-			ricRexHatFlowQuery,
-			twoWayusdcWethFlowQuery,
-			twoWayusdcWbtcFlowQuery,
-			twoWaywethUsdcFlowQuery,
-			twoWaywbtcUsdcFlowQuery,
-			twoWayUsdcRicFlowQuery,
-			twoWayRicUsdcFlowQuery,
-			twoWayMaticUsdcFlowQuery,
-			twoWayUsdcMaticFlowQuery,
-			usdcDaiFlowQuery,
-			daiUsdcFlowQuery,
-		}),
-	);
+  yield put(mainSetState({
+    usdcRicFlowQuery,
+    twoWayusdcWethFlowQuery,
+    twoWayusdcWbtcFlowQuery,
+    twoWaywethUsdcFlowQuery,
+    twoWaywbtcUsdcFlowQuery,
+    twoWayDaiWethFlowQuery,
+    twoWayWethDaiFlowQuery,
+    twoWayUsdcRicFlowQuery,
+    twoWayRicUsdcFlowQuery,
+    // twoWayMaticUsdcFlowQuery,
+    // twoWayUsdcMaticFlowQuery,
+    // twoWayMaticDaiFlowQuery,
+    // twoWayDaiMaticFlowQuery,
+    // twoWayWbtcDaiFlowQuery,
+    // twoWayDaiWbtcFlowQuery,
+    // daiEthFlowQuery,
+    // ethDaiFlowQuery,
+    // daiMkrFlowQuery,
+    // mkrDaiFlowQuery,
+    // usdcMkrFlowQuery,
+    // mkrUsdcFlowQuery,
+    // daiMaticFlowQuery,
+    // maticDaiFlowQuery,
+    // usdcSlpEthFlowQuery,
+    // usdcIdleFlowQuery,
+  }));
 }
