@@ -63,7 +63,34 @@ export const InvestNav = () => {
 					to={Routes.InvestLaunchpads}
 				>
 					<FontIcon name={FontIconName.Shuttle} size={16} />
-					<div className={styles.nav_text}>{'Launchpad'}</div>
+					<div className={styles.nav_text}>{t('Launchpad')}</div>
+				</NavLink>
+				<NavLink className={styles.nav_link} activeClassName={styles.nav_link_active} to={Routes.Distributions}>
+					<FontIcon name={FontIconName.Distribution} size={16} />
+					<div className={styles.nav_text}>{t('Distributions')}</div>
+				</NavLink>
+
+				{/*<NavLink
+					className={styles.nav_link}
+					activeClassName={styles.nav_link_active}
+					to={Routes.Banks}
+				>
+					<FontIcon name={FontIconName.Bank} size={16} />
+					<div className={styles.nav_text}>{t('Banks')}</div>
+				</NavLink>*/}
+
+				{/*<NavLink
+					className={styles.nav_link}
+					activeClassName={styles.nav_link_active}
+					to={Routes.Vaults}
+				>
+					<FontIcon name={FontIconName.Lock} size={16} />
+					<div className={styles.nav_text}>{t('Vault')}</div>
+				</NavLink>*/}
+
+				<NavLink to={Routes.Refer} className={styles.nav_link} activeClassName={styles.nav_link_active}>
+					<FontIcon name={FontIconName.Refer} size={16} />
+					<div className={styles.nav_text}>{t('Refer')}</div>
 				</NavLink>
 
 				<NavLink
@@ -80,22 +107,17 @@ export const InvestNav = () => {
 					<FontIcon name={FontIconName.Refer} size={16} />
 					<div className={styles.nav_text}>{'Refer'}</div>
 				</NavLink>
+        
+			 <a className={styles.nav_link} href={TUTORIAL_LINK} target="_blank">
+				 <div className={styles.nav_text_tutorial}>{t('Tutorial')}</div>
+				 <FontIcon name={FontIconName.External} size={16} />
+			 </a>
 
-				<a href={SUPPORT} className={styles.nav_link} target="_blank" rel={'noreferrer'}>
-					<div className={styles.nav_text_tutorial}>{'Support'}</div>
-					<FontIcon name={FontIconName.External} size={16} />
-				</a>
-
-				<a className={styles.nav_link} href={TUTORIAL_LINK} target="_blank" rel="noreferrer">
-					<div className={styles.nav_text_tutorial}>{'Tutorial'}</div>
-					<FontIcon name={FontIconName.External} size={16} />
-				</a>
-
-				<a href={RICOCHET_LEGACY_LINK} className={styles.nav_link} target="_blank" rel={'noreferrer'}>
-					<div className={styles.nav_text_tutorial}>{'Ricochet V2'}</div>
-					<FontIcon name={FontIconName.External} size={16} />
-				</a>
-			</div>
+			 <a href={RICOCHET_V1_LINK} className={styles.nav_link} target="_blank" rel={'noreferrer'}>
+				 <div className={styles.nav_text_tutorial}>{t('Ricochet V1')}</div>
+				 <FontIcon name={FontIconName.External} size={16} />
+			 </a>
 		</div>
+	</div>
 	);
 };
