@@ -42,6 +42,9 @@ async function getPrices() {
 export const getCoingeckoPrices = async (): Promise<{ [key: string]: number }> => {
 	const tokenAddresses = [...coingeckoIds.keys()];
 	const coingeckoPrices: { [key: string]: number } = {};
+export const getCoingeckoPrices = async (): Promise<{ [key: string]: number }> => {
+	const tokenAddresses = [...coingeckoIds.keys()];
+	const coingeckoPrices: { [key: string]: number } = {};
 
 	await getPrices()
 		.then((response) => {
